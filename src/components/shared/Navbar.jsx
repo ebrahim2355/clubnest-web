@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../../assets/ClubNest-logo.png';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import Button from '../Button';
 import { Menu, X } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav>
+    <nav className='sticky top-0 z-50 bg-white/80 backdrop-blur-3xl'>
       <div className='w-11/12 mx-auto flex items-center justify-between py-4 px-2 border-b border-main/25'>
         {/* Logo */}
         <div>
@@ -36,7 +36,7 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className='hidden md:flex items-center gap-3'>
-          <Button className='rounded-full'>Log In</Button>
+          <Link to='/login'><Button className='rounded-full'>Log In</Button></Link>
           <Button className='rounded-full'>Register</Button>
         </div>
 
