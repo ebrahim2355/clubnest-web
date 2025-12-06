@@ -11,7 +11,7 @@ const HeroBanner = () => {
       {/* Video Background */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
-        autoPlay
+        // autoPlay
         loop
         muted
         playsInline
@@ -33,10 +33,10 @@ const HeroBanner = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button className="rounded-full transform hover:scale-105 transition">
+          <Button className="rounded-full transform hover:scale-105 transition text-lg border border-main">
             Join a Club
           </Button>
-          <Button className="rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 transition">
+          <Button className="rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 transition text-lg">
             Create a Club
           </Button>
         </div>
