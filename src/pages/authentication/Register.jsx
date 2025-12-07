@@ -6,12 +6,14 @@ import GoogleLogin from "../../components/GoogleLogin";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../utils";
 import { AuthContext } from "../../provider/authProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUser, setLoading } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure()
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -39,6 +41,19 @@ const Register = () => {
           displayName: data.name,
           photoURL: imageUrl,
         };
+
+        // user save in db 
+        const userInfo = {
+          email: res.user.email,
+          displayName: data.name,
+          photoURL: imageUrl
+        }
+        axiosSecure.post(`/user`,userInfo)
+        .then(res=>{
+          if(res.data.insertedId){
+            console.log('user created successfully')
+          }
+        })
 
         // update profile 
         updateUser(userProfile)

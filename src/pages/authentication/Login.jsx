@@ -5,16 +5,31 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import GoogleLogin from "../../components/GoogleLogin";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/authProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Login = () => {
     const {signInUser,setLoading} = useContext(AuthContext)
   const [showPassword, setShowPassword] = useState(false);
   const {register,handleSubmit,formState:{errors}} = useForm()
+  const axiosSecure = useAxiosSecure()
 
   const handleLogin = (data)=>{
     signInUser(data.email,data.password)
     .then(res=>{
         console.log(res.user)
+        const userInfo = {
+          email: res.user.email,
+          displayName: res.user.displayName,
+          photoURL: res.user.photoURL
+        }
+
+        // user save in db 
+        axiosSecure.post(`/user`,userInfo)
+        .then(res=>{
+          if(res.data.insertedId){
+            console.log('user created successfully')
+          }
+        })
     })
     .catch(err=>{
         alert(err)

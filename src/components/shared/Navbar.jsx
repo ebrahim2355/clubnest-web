@@ -97,7 +97,7 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
                   <div className="py-2">
                     <Link
-                      to="/profile"
+                      to="/myProfile"
                       onClick={setMenuClose}
                       className="flex items-center gap-3 px-5 py-3 hover:bg-main/5 transition"
                     >
