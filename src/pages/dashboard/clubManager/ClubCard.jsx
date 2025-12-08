@@ -1,4 +1,3 @@
-// components/ClubCard.jsx
 import React from "react";
 import {
   MapPin,
@@ -7,16 +6,16 @@ import {
   Clock,
   CheckCircle2,
   XCircle,
-  Check,
   Pencil,
   Trash,
-  X,
 } from "lucide-react";
 import useRole from "../../../hooks/useRole";
+import { NavLink } from "react-router";
 
 const ClubCard = ({ club }) => {
   const { role } = useRole();
   const {
+    _id,
     clubName,
     description,
     category,
@@ -45,7 +44,7 @@ const ClubCard = ({ club }) => {
   const StatusIcon = statusConfig[status]?.icon || Clock;
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+    <NavLink to={`/clubs/${_id}`} className="bg-white rounded-3xl shadow-lg  overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
       {/* Club Image */}
       <div className="relative h-48 overflow-hidden">
         <img
@@ -130,24 +129,9 @@ const ClubCard = ({ club }) => {
           )}
 
 
-          {/* accept reject button display only for admin */}
-          {role === "admin" && (
-            <>
-              <div className="flex justify-between items-center gap-2">
-                <button className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2">
-                  {" "}
-                  <Check size={18} /> Accept
-                </button>
-                <button className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2">
-                  {" "}
-                  <X size={18} /> Reject
-                </button>
-              </div>
-            </>
-          )}
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 };
 

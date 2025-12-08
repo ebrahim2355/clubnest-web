@@ -10,6 +10,7 @@ import BecomeClubManager from "../pages/BecomeClubManager";
 import ClubManagerApproval from "../pages/dashboard/admin/ClubManagerApproval";
 import CreateClub from "../pages/dashboard/clubManager/CreateClub";
 import MyClub from "../pages/dashboard/clubManager/MyClub";
+import ClubDetails from "../pages/ClubDetails";
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
             {
                 path: '/becomeClubManager',
                 Component: BecomeClubManager
+            },
+            {
+                path: '/clubs/:id',
+                Component: ClubDetails
             }
         ] 
     },
