@@ -34,11 +34,11 @@ const ClubDetails = () => {
   return (
     <div className="min-h-screen w-11/12 mx-auto">
       {/* Hero Section with Banner */}
-      <div className="relative h-96 md:h-[500px] overflow-hidden mt-8">
+      <div className="relative h-96 md:h-[500px] overflow-hidden mt-8 rounded-4xl">
         <img
           src={club?.clubImage}
           alt={club?.clubName}
-          className="w-full h-full object-cover rounded-t-4xl"
+          className="w-full h-full object-cover rounded-4xl"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 

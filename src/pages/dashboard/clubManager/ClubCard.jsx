@@ -8,6 +8,7 @@ import {
   XCircle,
   Pencil,
   Trash,
+  Info,
 } from "lucide-react";
 import useRole from "../../../hooks/useRole";
 import { NavLink } from "react-router";
@@ -27,6 +28,10 @@ const ClubCard = ({ club }) => {
     createdAt,
   } = club;
 
+  const handleEdit = ()=>{
+    alert('edited')
+  }
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -44,7 +49,7 @@ const ClubCard = ({ club }) => {
   const StatusIcon = statusConfig[status]?.icon || Clock;
 
   return (
-    <NavLink to={`/clubs/${_id}`} className="bg-white rounded-3xl shadow-lg  overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+    <div className="bg-white rounded-3xl shadow-lg  overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
       {/* Club Image */}
       <div className="relative h-48 overflow-hidden">
         <img
@@ -116,14 +121,21 @@ const ClubCard = ({ club }) => {
           {role === "Club-Manager" && (
             <>
               <div className="flex justify-between items-center gap-2">
-                <button className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2">
+                <button onClick={handleEdit} className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
                   {" "}
                   <Pencil size={18} /> Edit
                 </button>
-                <button className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2">
+                <button className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
                   {" "}
                   <Trash size={18} /> Delete
                 </button>
+
+                <NavLink to={`/clubs/${_id}`} className={`w-full`}>
+                  <button className="bg-main text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                  {" "}
+                  <Info size={18} /> Details
+                </button>
+                </NavLink>
               </div>
             </>
           )}
@@ -131,7 +143,7 @@ const ClubCard = ({ club }) => {
 
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
 
