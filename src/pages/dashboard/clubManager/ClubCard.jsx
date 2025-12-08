@@ -12,8 +12,10 @@ import {
 } from "lucide-react";
 import useRole from "../../../hooks/useRole";
 import { NavLink } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const ClubCard = ({ club }) => {
+const ClubCard = ({ club,refetch }) => {
+  const axiosSecure = useAxiosSecure()
   const { role } = useRole();
   const {
     _id,
@@ -28,8 +30,23 @@ const ClubCard = ({ club }) => {
     createdAt,
   } = club;
 
-  const handleEdit = ()=>{
-    alert('edited')
+  const handleEdit = (id)=>{
+    alert(id)
+  }
+
+  const handleDelete = (id) =>{
+    axiosSecure.delete(`/club/${id}`)
+    .then(res=>{
+      console.log(res)
+      if(res.data.deletedCount){
+        refetch()
+        alert(`deleted Successfully`)
+      }
+    })
+    .catch(err=>{
+      console.log(err)
+      alert(err)
+    })
   }
 
   const formatDate = (dateString) => {
@@ -121,11 +138,11 @@ const ClubCard = ({ club }) => {
           {role === "Club-Manager" && (
             <>
               <div className="flex justify-between items-center gap-2">
-                <button onClick={handleEdit} className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                <button onClick={()=>handleEdit(_id)} className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
                   {" "}
                   <Pencil size={18} /> Edit
                 </button>
-                <button className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                <button onClick={()=>handleDelete(_id)} className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
                   {" "}
                   <Trash size={18} /> Delete
                 </button>

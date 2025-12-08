@@ -12,7 +12,7 @@ const MyClub = () => {
   const axiosSecure = useAxiosSecure()
 
   
-  const {data:myClubs} = useQuery({
+  const {data:myClubs,refetch} = useQuery({
     queryKey:['myClubs',user?.email],
     queryFn:async()=>{
         const res = await axiosSecure.get(`/clubs?email=${user.email}`)
@@ -60,7 +60,7 @@ const MyClub = () => {
             <p className="text-gray-600">Pending</p>
           </div>
           <div className="bg-white p-6 rounded-2xl shadow text-center">
-            <div className="text-3xl font-bold text-amber-600">
+            <div className="text-3xl font-bold text-red-600">
               {myClubs?.filter(c => c.status === 'rejected')?.length}
             </div>
             <p className="text-gray-600">Rejected</p>
@@ -77,7 +77,7 @@ const MyClub = () => {
             <Package className="w-20 h-20 text-gray-400 mx-auto mb-6" />
             <h3 className="text-2xl font-bold text-gray-700">No clubs yet</h3>
             <p className="text-gray-500 mt-3">Start by creating your first club!</p>
-            <Link to="/create-club">
+            <Link to="/dashboard/create-club">
               <button className="mt-6 bg-main text-white px-10 py-4 rounded-2xl font-bold hover:bg-main/90 transition">
                 + Create Club
               </button>
@@ -86,7 +86,7 @@ const MyClub = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {myClubs?.map((club) => (
-              <ClubCard key={club._id} club={club} />
+              <ClubCard key={club._id} club={club} refetch={refetch}/>
             ))}
           </div>
         )}
