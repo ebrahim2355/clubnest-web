@@ -168,12 +168,28 @@ const DashboardLayout = () => {
                 <NavLink to="approve-club-manager">
                   <li>
                     <button
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
                       data-tip="Approve Club Manager"
                     >
                       <UserPlus size={18} />
                       <span className="is-drawer-close:hidden">
                         Approve Club Manager
+                      </span>
+                    </button>
+                  </li>
+                </NavLink>
+
+
+                {/* club  approval list */}
+                <NavLink to="approve-clubs">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
+                      data-tip="Approve Clubs"
+                    >
+                      <Grid2x2Plus size={18} />
+                      <span className="is-drawer-close:hidden">
+                        Approve Clubs
                       </span>
                     </button>
                   </li>

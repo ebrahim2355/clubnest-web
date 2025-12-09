@@ -11,6 +11,7 @@ import ClubManagerApproval from "../pages/dashboard/admin/ClubManagerApproval";
 import CreateClub from "../pages/dashboard/clubManager/CreateClub";
 import MyClub from "../pages/dashboard/clubManager/MyClub";
 import ClubDetails from "../pages/ClubDetails";
+import ClubApprovalList from "../pages/dashboard/admin/ClubApprovalList";
 
 export const router = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
             {
                 path:'my-clubs',
                 Component: MyClub
+            },
+            {
+                path:'approve-clubs',
+                Component: ClubApprovalList
             }
         ]
     }

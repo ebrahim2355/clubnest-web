@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/refs */
 import React, { useContext, useRef, useState } from "react";
 import {
   MapPin,
