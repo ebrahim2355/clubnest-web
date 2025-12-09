@@ -22,9 +22,9 @@ import { AuthContext } from "../../../provider/authProvider";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import { imageUpload } from "../../../utils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const ClubCard = ({ club, refetch }) => {
+const ClubCard = ({ club }) => {
   const axiosSecure = useAxiosSecure();
   const { role } = useRole();
   const modalRef = useRef();
@@ -79,18 +79,18 @@ const ClubCard = ({ club, refetch }) => {
     setBannerPhoto(clubImage);
   };
 
-
-  const {mutate:updateClubInfo} = useMutation({
-    mutationFn: async (clubData)=>{
-      const res = await  axiosSecure.patch(`/clubEdit/${_id}`, clubData)
-      return res.data 
+  const queryClient = useQueryClient();
+  const { mutate: updateClubInfo } = useMutation({
+    mutationFn: async (clubData) => {
+      const res = await axiosSecure.patch(`/clubEdit/${_id}`, clubData);
+      return res.data;
     },
-    onSuccess:()=>{
-      alert('edited successfully')
-      refetch()
-      modalRef.current.close()
-    }
-  })
+    onSuccess: () => {
+      alert("edited successfully");
+      queryClient.invalidateQueries(["myClubs"]);
+      modalRef.current.close();
+    },
+  });
 
   const handleEditClub = async (data) => {
     const bannerImage = await imageUpload(bannerPhoto);
@@ -101,23 +101,24 @@ const ClubCard = ({ club, refetch }) => {
       managerName: user.displayName,
     };
 
-    updateClubInfo(clubData)
+    updateClubInfo(clubData);
   };
 
+  const { mutate: deleteClub } = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.delete(`/club/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      alert("deleted Club");
+      queryClient.invalidateQueries(["myClubs"]);
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
   const handleDelete = (id) => {
-    axiosSecure
-      .delete(`/club/${id}`)
-      .then((res) => {
-        console.log(res);
-        if (res.data.deletedCount) {
-          refetch();
-          alert(`deleted Successfully`);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
-      });
+    deleteClub(id);
   };
 
   const formatDate = (dateString) => {
