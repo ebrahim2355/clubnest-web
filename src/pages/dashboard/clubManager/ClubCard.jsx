@@ -15,7 +15,7 @@ import {
   Tag,
 } from "lucide-react";
 import useRole from "../../../hooks/useRole";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../provider/authProvider";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,10 @@ const ClubCard = ({ club }) => {
   const { user } = useContext(AuthContext);
   const [bannerPreview, setBannerPreview] = useState(null);
   const [bannerPhoto, setBannerPhoto] = useState();
-  console.log(bannerPhoto);
+
+  const Location = useLocation();
+  console.log(Location.pathname);
+
   const categories = [
     "Photography",
     "Sports",
@@ -220,7 +223,14 @@ const ClubCard = ({ club }) => {
             </div>
 
             {/* edit delete button display only for club manager */}
-            {role === "Club-Manager" && (
+            {Location.pathname === "/" && role === "Club-Manager" ? (
+              <NavLink to={`/clubs/${_id}`} className={`w-full`}>
+                <button className="bg-green-500 text-white font-semibold py-2 mt-5 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                  {" "}
+                  <Info size={18} /> Details
+                </button>
+              </NavLink>
+            ) : (
               <>
                 <div className="flex justify-between items-center gap-2">
                   <button
