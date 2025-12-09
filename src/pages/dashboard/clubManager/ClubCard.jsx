@@ -22,6 +22,7 @@ import { AuthContext } from "../../../provider/authProvider";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import { imageUpload } from "../../../utils";
+import { useMutation } from "@tanstack/react-query";
 
 const ClubCard = ({ club, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -78,6 +79,19 @@ const ClubCard = ({ club, refetch }) => {
     setBannerPhoto(clubImage);
   };
 
+
+  const {mutate:updateClubInfo} = useMutation({
+    mutationFn: async (clubData)=>{
+      const res = await  axiosSecure.patch(`/clubEdit/${_id}`, clubData)
+      return res.data 
+    },
+    onSuccess:()=>{
+      alert('edited successfully')
+      refetch()
+      modalRef.current.close()
+    }
+  })
+
   const handleEditClub = async (data) => {
     const bannerImage = await imageUpload(bannerPhoto);
     const clubData = {
@@ -87,19 +101,7 @@ const ClubCard = ({ club, refetch }) => {
       managerName: user.displayName,
     };
 
-    axiosSecure
-      .patch(`/clubEdit/${_id}`, clubData)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.modifiedCount) {
-          modalRef.current.close();
-          refetch();
-          alert("edited Successfully");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    updateClubInfo(clubData)
   };
 
   const handleDelete = (id) => {
