@@ -184,27 +184,40 @@ const ClubCard = ({ club }) => {
               </div>
 
               <div className="text-right">
-                <p className="text-2xl font-bold text-main">
-                  ৳{memberShipFee.toLocaleString()}
-                </p>
+                {memberShipFee === 0 ? (
+                  <p className="font-bold text-green-600 text-xl">free</p>
+                ) : (
+                  <p className="text-2xl font-bold text-main">
+                    ৳{memberShipFee.toLocaleString()}
+                  </p>
+                )}
                 <p className="text-xs text-gray-500">membership fee</p>
               </div>
             </div>
 
-            {/* Manager info only display for member */}
-            {role === "member" && (
-              <>
-                <div className="mt-5 pt-5 border-t border-gray-100 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                    <Users className="w-5 h-5 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Managed by</p>
-                    <p className="font-semibold text-gray-800">{managerName}</p>
-                  </div>
+            {/* manager info  */}
+            <div className="flex items-center justify-between gap-5 border-t border-gray-100">
+              <div className="flex-1 mt-5 pt-5  flex items-center gap-3">
+                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                  <Users className="w-5 h-5 text-gray-600" />
                 </div>
-              </>
-            )}
+                <div>
+                  <p className="text-sm text-gray-500">Managed by</p>
+                  <p className="font-semibold text-gray-800">{managerName}</p>
+                </div>
+              </div>
+
+              {role !== "Club-Manager" && (
+                <div className="mt-5 pt-5 flex-1">
+                  <NavLink to={`/clubs/${_id}`} className={`w-full`}>
+                    <button className="bg-green-500 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                      {" "}
+                      <Info size={18} /> Details
+                    </button>
+                  </NavLink>
+                </div>
+              )}
+            </div>
 
             {/* edit delete button display only for club manager */}
             {role === "Club-Manager" && (
@@ -438,7 +451,7 @@ const ClubCard = ({ club }) => {
                     <div className="flex items-center gap-4 text-gray-700">
                       <Mail className="w-5 h-5 text-main" />
                       <span>
-                        <strong>Club Manager Email:</strong> {user.email}
+                        <strong>Club Manager Email:</strong> {user?.email}
                       </span>
                     </div>
                   </div>
