@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { MapPin, Calendar, DollarSign, Users, Tag, Mail } from 'lucide-react';
 import useRole from '../hooks/useRole';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import { AuthContext } from '../provider/authProvider';
 
 const ClubDetails = () => {
   const {id} = useParams()
   const {role} = useRole()
   const axiosSecure = useAxiosSecure()
+  const {user} = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const {data} = useQuery({
     queryKey:['club',id],
@@ -20,8 +23,22 @@ const ClubDetails = () => {
 
   const club = data?.[0];
 
- 
-  console.log(club)
+  const {mutate:joinReq}= useMutation({
+    mutationFn: async(membershipInfo)=>{
+      const res = await axiosSecure.post('/addMembership',membershipInfo)
+      return res.data
+    },
+    onSuccess:()=>{
+      alert('Your join request has been added.')
+      navigate('/dashboard/my-join-requests')
+    }
+  })
+
+  const handleJoinRequest = () =>{
+    const membershipData = {clubId:club._id,memberEmail:user.email,memberName:user.displayName}
+    joinReq(membershipData)
+  }
+
   const formatDate = (dateString) => {
     return new Date(dateString)?.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -129,7 +146,7 @@ const ClubDetails = () => {
               <p className="text-lg mb-8 opacity-90">
                 Become a member and get access to exclusive events and community!
               </p>
-              <button className="w-full bg-white text-main font-bold text-xl py-5 rounded-2xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg">
+              <button onClick={handleJoinRequest} className="w-full bg-white text-main font-bold text-xl py-5 rounded-2xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg">
                 Join Club — ৳{club?.memberShipFee}
               </button>
               {club?.memberShipFee === 0 && (

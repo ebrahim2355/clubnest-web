@@ -7,6 +7,7 @@ import {
   Grid2x2Plus,
   Layers,
   LayoutDashboard,
+  LayoutList,
   LogOut,
   User,
   UserPen,
@@ -247,6 +248,27 @@ const DashboardLayout = () => {
                 </NavLink>
               </>
             )}
+
+            {
+              role === 'member' && (
+                <>
+                <NavLink to="my-join-requests">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
+                      data-tip="My Join Requests"
+                    >
+                     <LayoutList size={18} />
+                      <span className="is-drawer-close:hidden">
+                        My Join Requests
+                      </span>
+                    </button>
+                  </li>
+                </NavLink>
+                
+                </>
+              )
+            }
 
             {/* List item */}
             <li>
