@@ -31,8 +31,9 @@ const ClubCard = ({ club }) => {
   const [bannerPreview, setBannerPreview] = useState(null);
   const [bannerPhoto, setBannerPhoto] = useState();
 
-  const Location = useLocation();
+  const Location = useLocation()
   console.log(Location.pathname);
+
 
   const categories = [
     "Photography",
@@ -223,14 +224,15 @@ const ClubCard = ({ club }) => {
             </div>
 
             {/* edit delete button display only for club manager */}
-            {Location.pathname === "/" && role === "Club-Manager" ? (
-              <NavLink to={`/clubs/${_id}`} className={`w-full`}>
-                <button className="bg-green-500 text-white font-semibold py-2 mt-5 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
-                  {" "}
-                  <Info size={18} /> Details
-                </button>
-              </NavLink>
-            ) : (
+            {
+              Location.pathname === '/' && role === 'Club-Manager' ?
+               <NavLink to={`/clubs/${_id}`} className={`w-full`}>
+                    <button className="bg-green-500 text-white font-semibold py-2 mt-5 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                      {" "}
+                      <Info size={18} /> Details
+                    </button>
+                  </NavLink>
+              : role === 'Club-Manager' &&
               <>
                 <div className="flex justify-between items-center gap-2">
                   <button
@@ -256,7 +258,7 @@ const ClubCard = ({ club }) => {
                   </NavLink>
                 </div>
               </>
-            )}
+            }
           </div>
         </div>
       </div>

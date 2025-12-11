@@ -16,7 +16,7 @@ const FeaturedClubs = () => {
   //   console.log(allClubs);
 
   if (isLoading) return <p>loading.........</p>;
-  const allClubs = Clubs.slice(0, 6);
+  const allClubs = Clubs.slice(0, 8);
   return (
     <Container>
       <div className="my-16">
