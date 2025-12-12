@@ -13,10 +13,11 @@ const FeaturedClubs = () => {
       return res.data;
     },
   });
-  //   console.log(allClubs);
+   
 
   if (isLoading) return <p>loading.........</p>;
-  const allClubs = Clubs.slice(0, 8);
+  const allClubs = Clubs?.slice(0, 8);
+   console.log(allClubs);
   return (
     <Container>
       <div className="my-16">
