@@ -21,6 +21,7 @@ const MyJoinRequests = () => {
       return res.data;
     },
   });
+  console.log(joinReqData);
 
   const queryClient = useQueryClient();
   const { mutate: payClubFee } = useMutation({
@@ -51,6 +52,31 @@ const MyJoinRequests = () => {
     payClubFee(paymentInfo);
   };
 
+
+  const {mutate:freeJoin} = useMutation({
+    mutationFn:async(clubInfo)=>{
+      const res = await axiosSecure.patch('/freeJoin',clubInfo)
+      return res.data
+    },
+    onSuccess:()=>{
+      alert('joined successfully')
+      queryClient.invalidateQueries(["joinReqData"]);
+    }
+  })
+
+  const handleFreeJoin = (data) =>{
+    const clubInfo = {
+      clubFee: data.clubFee,
+      clubName: data.clubName,
+      clubId: data.clubId,
+      memberEmail: data.memberEmail,
+      memberName: data.memberName,
+      memberId: data._id,
+      status: data.status,
+    };
+    freeJoin(clubInfo)
+  }
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -66,7 +92,7 @@ const MyJoinRequests = () => {
     (data) => data.status === "pendingPayment"
   );
   const expiredClub = joinReqData?.filter((data) => data.status === "expired");
-
+  
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="w-10/12 mx-auto">
@@ -169,29 +195,21 @@ const MyJoinRequests = () => {
 
                     <td>
                       <div className="flex justify-center items-center">
-                        {reqData.clubFee === 0 ? (
+                        {reqData.status === "pendingPayment" ? (
                           <p className="text-orange-500 font-semibold bg-amber-100 py-1 px-2 rounded-full">
-                            pending Join
+                            {reqData.status.split("g").join("g ")}
                           </p>
                         ) : (
-                          <>
-                            {reqData.status === "pendingPayment" ? (
-                              <p className="text-orange-500 font-semibold bg-amber-100 py-1 px-2 rounded-full">
-                                {reqData.status.split("g").join("g ")}
-                              </p>
-                            ) : (
-                              <p className="text-green-800 font-semibold bg-green-100 py-1 px-2 rounded-full">
-                                {reqData.status}
-                              </p>
-                            )}
-                          </>
+                          <p className={` font-semibold  py-1 px-2.5 rounded-full ${reqData.status === 'pending join' ? 'text-orange-600 bg-amber-100':'bg-green-100 text-green-800'}`}>
+                            {reqData.status}
+                          </p>
                         )}
                       </div>
                     </td>
 
                     <td className="px-6 py-5">
                       <div>
-                        {reqData.clubFee === 0 ? (
+                        {reqData.clubFee === 0 || "" ? (
                           <p className="font-bold text-green-700">Free</p>
                         ) : (
                           <p className="text-main font-bold">
@@ -204,8 +222,11 @@ const MyJoinRequests = () => {
                     {/* Actions */}
                     <td className="px-6 py-5">
                       <div className="flex items-center justify-center gap-3">
-                        {reqData.clubFee === 0 ? (
-                          <button className="p-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-400 hover:text-black cursor-pointer transition group flex justify-center items-center gap-2">
+                        {reqData.clubFee === 0? (
+                          <button 
+                          disabled={reqData?.status === "active"}
+                          onClick={()=> handleFreeJoin(reqData)}
+                          className={`p-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-400 hover:text-black cursor-pointer transition group flex justify-center items-center gap-2 ${reqData.status === 'active' && 'opacity-60 !cursor-not-allowed hover:bg-green-600 hover:text-white'}`}>
                             <PlusCircle /> Join Now
                           </button>
                         ) : reqData.status === "active" ? (
