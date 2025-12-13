@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { AuthContext } from "../provider/authProvider";
 import {
+  Calendars,
   ChevronDown,
   CopyCheck,
   Grid2x2Plus,
@@ -244,6 +245,22 @@ const DashboardLayout = () => {
                       <Layers size={18} />
                       <span className="is-drawer-close:hidden">
                         My Clubs
+                      </span>
+                    </button>
+                  </li>
+                </NavLink>
+
+
+
+                <NavLink to="my-events">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
+                      data-tip="My Events"
+                    >
+                      <Calendars size={18} />
+                      <span className="is-drawer-close:hidden">
+                        My Events
                       </span>
                     </button>
                   </li>

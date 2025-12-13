@@ -107,6 +107,7 @@ const ClubDetails = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors,isLoading }
   } = useForm();
   const queryClient = useQueryClient()
@@ -118,6 +119,8 @@ const ClubDetails = () => {
     onSuccess: ()=>{
       alert('event Created successfully')
       queryClient.invalidateQueries(['club'])
+      reset()
+      setBannerPreview(null)
       modalRef.current.close()
     }
   })
