@@ -268,6 +268,8 @@ const DashboardLayout = () => {
               </>
             )}
 
+
+            {/* member only links */}
             {
               role === 'member' && (
                 <>
@@ -295,6 +297,21 @@ const DashboardLayout = () => {
                      <CopyCheck size={18} />
                       <span className="is-drawer-close:hidden">
                         Joined Clubs
+                      </span>
+                    </button>
+                  </li>
+                </NavLink>
+
+
+                <NavLink to="joined-events">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
+                      data-tip="Joined Events"
+                    >
+                     <Calendars size={18} />
+                      <span className="is-drawer-close:hidden">
+                        Joined Events
                       </span>
                     </button>
                   </li>

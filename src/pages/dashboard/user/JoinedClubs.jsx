@@ -31,7 +31,7 @@ const JoinedClubs = () => {
   );
   const joinedClubIds = activeJoinedClubs?.map((c) => c.clubId);
   const joinedClubs = allClubs?.filter((club) =>
-    joinedClubIds.includes(club._id)
+    joinedClubIds?.includes(club._id)
   );
   console.log(joinedClubs);
 
