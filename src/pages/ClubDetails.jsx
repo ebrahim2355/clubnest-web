@@ -133,6 +133,7 @@ const ClubDetails = () => {
       clubId: club._id,
       eventImage: image,
       clubEmail: club.managerEmail,
+      clubName: club.clubName,
       eventDate: eventDate.toISOString()
     }
    createEvent(eventData)
