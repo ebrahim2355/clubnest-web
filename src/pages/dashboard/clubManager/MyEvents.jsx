@@ -2,18 +2,21 @@ import { Plus, Calendar, MapPin, Users, Ticket } from 'lucide-react';
 import EventCard from './EventCard';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Loading from '../../../components/animation/Loading';
 
 
 const MyEvents = () => {
     const axiosSecure = useAxiosSecure()
 
-  const {data:events}=useQuery({
+  const {data:events,isLoading}=useQuery({
     queryKey:['events'],
     queryFn: async()=>{
         const res = await axiosSecure.get('/getEvents')
         return res.data 
     }
   })
+
+  if(isLoading) return <Loading />
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">

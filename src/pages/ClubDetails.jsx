@@ -108,7 +108,7 @@ const ClubDetails = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors,isLoading }
+    formState: { errors }
   } = useForm();
   const queryClient = useQueryClient()
   const {mutate:createEvent} = useMutation({
@@ -511,7 +511,7 @@ const ClubDetails = () => {
                       className="md:px-16 py-6 text-xl font-bold rounded-full bg-main hover:bg-main/90 text-white  hover:shadow-main/30 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-4 mx-auto"
                     >
                       <Tag className="w-7 h-7" />
-                      Create Event {isLoading && <Loader />}
+                      Create Event
                     </Button>
                   </div>
                 </form>

@@ -11,6 +11,7 @@ import {
   Calendar,
   AlertCircle,
 } from "lucide-react";
+import Loading from "../../../components/animation/Loading";
 
 const ClubManagerApproval = () => {
   const axiosSecure = useAxiosSecure();
@@ -39,7 +40,7 @@ const ClubManagerApproval = () => {
     },
   });
 
-  if (isPending) return <p>loading......</p>;
+  if (isPending) return <Loading />;
 
   const updateClubManagerStatus = (manager, status) => {
     const updateInfo = { email: manager?.email, status: status };

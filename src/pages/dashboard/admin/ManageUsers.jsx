@@ -2,6 +2,7 @@ import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, Calendar, Check, Mail, X } from "lucide-react";
+import Loading from "../../../components/animation/Loading";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -41,7 +42,7 @@ const ManageUsers = () => {
     updateUserRole(user,'member')
   }
 
-  if (isPending) return <p>loading......</p>;
+  if (isPending) return <Loading />;
 
   // filtered just admin and member only
   const users = allUsers?.filter((user) => user.role !== "Club-Manager");

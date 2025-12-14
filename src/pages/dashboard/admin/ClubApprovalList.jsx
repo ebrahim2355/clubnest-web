@@ -13,6 +13,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router";
+import Loading from "../../../components/animation/Loading";
 
 const ClubApprovalList = () => {
   const axiosSecure = useAxiosSecure();
@@ -60,7 +61,7 @@ const ClubApprovalList = () => {
     });
   };
 
-  if (isLoading) return <p>loading.....</p>;
+  if (isLoading) return <Loading />;
   const pendingClubs = Clubs.filter((c) => c.status === "pending");
   const approvedClubs = Clubs.filter((c) => c.status === "approved");
   const rejectedClubs = Clubs.filter((c) => c.status === "rejected");

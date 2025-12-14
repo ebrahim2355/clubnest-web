@@ -3,6 +3,7 @@ import Container from "./Container";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import ClubCard from "../pages/dashboard/clubManager/ClubCard";
+import Loading from "./animation/Loading";
 
 const FeaturedClubs = () => {
   const axios = useAxiosSecure();
@@ -15,7 +16,7 @@ const FeaturedClubs = () => {
   });
    
 
-  if (isLoading) return <p>loading.........</p>;
+  if (isLoading) return <Loading />;
   const allClubs = Clubs?.slice(0, 8);
    console.log(allClubs);
   return (
