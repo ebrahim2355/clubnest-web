@@ -64,7 +64,7 @@ const EventCard = ({ event }) => {
       <div className="p-6">
         <h3 className="text-2xl font-bold text-gray-900 mb-3">{eventName}</h3>
 
-        <p className="text-gray-600 line-clamp-2 mb-5">{description}</p>
+        <p className="text-gray-600 line-clamp-2 mb-5 h-12">{description}</p>
 
         {/* Event Details */}
         <div className="space-y-4">
@@ -105,9 +105,9 @@ const EventCard = ({ event }) => {
           <>
             <div className="mt-6 pt-6 border-t border-gray-100">
               {/* edit delete button display only for club manager */}
-              {Location.pathname === "/" && role === "Club-Manager" ? (
+              {Location.pathname === "/" || Location.pathname === '/events' && role === "Club-Manager" ? (
                 <NavLink className={`w-full`}>
-                  <button className="bg-green-500 text-white font-semibold py-2 mt-5 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+                  <button className="bg-green-500 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer">
                     {" "}
                     <Info size={18} /> Details
                   </button>
@@ -115,16 +115,14 @@ const EventCard = ({ event }) => {
               ) : (
                 role === "Club-Manager" && (
                   <>
-                    <div className="flex justify-between items-center gap-2">
+                    <div className="flex justify-between items-center gap-2 md:text-base text-sm">
                       <button
-                        //   onClick={() => handleEdit(_id)}
                         className="bg-green-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer"
                       >
                         {" "}
                         <Pencil size={18} /> Edit
                       </button>
                       <button
-                        //   onClick={() => handleDelete(_id)}
                         className="bg-red-600 text-white font-semibold py-2 w-full rounded-xl flex justify-center items-center gap-2 cursor-pointer"
                       >
                         {" "}
