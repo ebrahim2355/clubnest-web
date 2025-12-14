@@ -19,6 +19,7 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentHistory from "../pages/dashboard/user/PaymentHistory";
 import JoinedClubs from "../pages/dashboard/user/JoinedClubs";
 import MyEvents from "../pages/dashboard/clubManager/MyEvents";
+import Events from "../pages/Events";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
         path: "/clubs",
         Component: Clubs,
       },
+      {
+        path: '/events',
+        Component: Events
+      }
     ],
   },
   {
