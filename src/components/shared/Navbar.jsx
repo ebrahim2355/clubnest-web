@@ -60,6 +60,15 @@ const Navbar = () => {
         <li>About Us</li>
       </NavLink>
 
+
+      <NavLink
+        to="/contactUs"
+        className="hover:text-main transition"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        <li>Contact Us</li>
+      </NavLink>
+
       <NavLink
         to="/becomeClubManager"
         className="hover:text-main transition"

@@ -23,6 +23,7 @@ import Events from "../pages/Events";
 import EventDetails from "../pages/EventDetails";
 import JoinedEvents from "../pages/dashboard/user/JoinedEvents";
 import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: '/aboutUs',
         Component: About
+      },
+      {
+        path: '/contactUs',
+        Component: Contact
       }
     ],
   },

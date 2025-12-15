@@ -74,7 +74,7 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-main/10 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-linear-to-br from-main/10 via-purple-50 to-pink-50 pt-16">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0 }}
