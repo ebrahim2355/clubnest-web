@@ -188,7 +188,7 @@ const EventCard = ({ event, registerId }) => {
           {role !== "Club-Manager" ? (
             <>
               <div className="mt-5 pt-5 flex flex-col xl:flex-row gap-3">
-                {role === "member" && Location.pathname !== "/events" && (
+                {(Location.pathname === "/" && Location.pathname === '/clubs') && role === "member" && (
                   <>
                     <button
                       onClick={cancelRegister}

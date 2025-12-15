@@ -85,7 +85,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-3xl border-b border-main/10">
+    <nav className="sticky top-0 z-50 bg-white/40 backdrop-blur-3xl border-b border-main/10">
       <div className="w-11/12 mx-auto flex items-center justify-between py-4 px-2">
         {/* Logo */}
         <Link to="/">
