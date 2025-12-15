@@ -136,68 +136,6 @@ const TestimonialSection = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Bottom Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-16"
-        >
-          <div
-            className="
-      flex
-      flex-col
-      justify-center
-      sm:flex-row
-      sm:flex-wrap
-      lg:flex-nowrap
-      items-center
-      gap-6
-      bg-white/80
-      backdrop-blur-sm
-      rounded-2xl
-      px-6
-      sm:px-10
-      py-6
-      shadow-xl
-      max-w-7xl
-      mx-auto
-    "
-          >
-            {/* Stat 1 */}
-            <div className="text-center min-w-40">
-              <div className="text-3xl sm:text-4xl font-extrabold text-main flex items-center justify-center gap-2">
-                <Users className="w-8 h-8 sm:w-10 sm:h-10" />
-                10K+
-              </div>
-              <p className="text-gray-600 font-medium mt-1">Active Members</p>
-            </div>
-
-            {/* Divider */}
-            <div className="hidden sm:block w-px h-16 bg-gray-300"></div>
-
-            {/* Stat 2 */}
-            <div className="text-center min-w-40">
-              <div className="text-3xl sm:text-4xl font-extrabold text-main">
-                500+
-              </div>
-              <p className="text-gray-600 font-medium mt-1">Clubs Created</p>
-            </div>
-
-            {/* Divider */}
-            <div className="hidden sm:block w-px h-16 bg-gray-300"></div>
-
-            {/* Stat 3 */}
-            <div className="text-center min-w-40">
-              <div className="text-3xl sm:text-4xl font-extrabold text-main">
-                2K+
-              </div>
-              <p className="text-gray-600 font-medium mt-1">Events Hosted</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

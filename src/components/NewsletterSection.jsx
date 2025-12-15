@@ -46,7 +46,7 @@ const NewsletterSection = () => {
         >
           {/* Decorative Background Elements */}
           <div className="absolute top-0 right-0 w-72 h-72 bg-main/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+          {/* <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div> */}
 
           <div className="relative grid grid-cols-1 lg:grid-cols-2">
             {/* Left: Content */}
