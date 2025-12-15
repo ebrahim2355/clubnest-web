@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search, Filter } from "lucide-react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ClubCard from "./dashboard/clubManager/ClubCard";
+import Loading from "../components/animation/Loading";
 
 const Clubs = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: allClubs } = useQuery({
-    queryKey: ["allClubs"],
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchText, setSearchText] = useState("");
+  const { data: allClubs = [], isLoading,isFetching } = useQuery({
+    queryKey: ["allClubs", selectedCategory, searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get("/clubs?status=approved");
+      const res = await axiosSecure.get(
+        `/filteredClubs?clubType=${selectedCategory}&search=${searchText}`
+      );
       return res.data;
     },
   });
@@ -53,36 +58,31 @@ const Clubs = () => {
           <input
             type="text"
             placeholder="Search by club name..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
             className="w-full pl-16 pr-6 py-5 text-lg bg-white border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-main/30 focus:border-main transition"
           />
         </div>
 
         {/* Category */}
         <div className="flex flex-col lg:flex-row justify-between items-start  gap-6">
-          {/* Categories */}
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`px-6 py-3 rounded-full font-medium transition-all ${
-                  cat === "All"
-                    ? "bg-main text-white shadow-lg"
-                    : "bg-white text-gray-700 border border-gray-300 hover:border-main hover:shadow-md"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          <p className="font-bold text-2xl border-l-8 pl-3 border-main">
+            <span className="text-main">{allClubs?.length}</span> Clubs Found
+          </p>
 
-          {/* Sort Dropdown */}
+          {/* Dropdown */}
           <div className="flex items-center gap-3">
-            <select className="select select-lg px-8 py-3  bg-white border border-gray-300 rounded-full font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-main/30 cursor-pointer shadow-sm">
-              <option>Newest First</option>
-              <option>Oldest First</option>
-              <option>Most Members</option>
-              <option>Free Clubs</option>
-              <option>Premium Clubs</option>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="select select-lg px-8 py-3 bg-white border border-gray-300 rounded-full font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-main/30 cursor-pointer shadow-sm"
+            >
+              <option value="all">All Categories</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -90,27 +90,27 @@ const Clubs = () => {
 
       {/* Clubs  */}
       <div className="w-11/12 mx-auto px-4 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {allClubs?.map((club) => (
-            <ClubCard key={club._id} club={club} />
-          ))}
-        </div>
-
-        {/*  if no clubs */}
-        {allClubs?.length === 0 && (
-          <>
-            <div className="text-center py-20">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Search className="w-16 h-16 text-gray-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-700">
-                No clubs found
-              </h3>
-              <p className="text-gray-500 mt-3">
-                Try adjusting your filters or search term.
-              </p>
+        {isLoading || isFetching ? (
+          <div className="flex justify-center items-center py-20">
+            <Loading />
+          </div>
+        ) : allClubs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {allClubs.map((club) => (
+              <ClubCard key={club._id} club={club} />
+            ))}
+          </div>
+        ) : (
+          // no data
+          <div className="text-center py-20">
+            <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+              <Search className="w-16 h-16 text-gray-400" />
             </div>
-          </>
+            <h3 className="text-2xl font-bold text-gray-700">No clubs found</h3>
+            <p className="text-gray-500 mt-3">
+              Try adjusting your filters or search term.
+            </p>
+          </div>
         )}
       </div>
     </div>

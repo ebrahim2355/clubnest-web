@@ -15,7 +15,7 @@ const Events = () => {
     },
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <div className="min-h-screen"><Loading /></div>;
 
   const categories = [
     "Photography",

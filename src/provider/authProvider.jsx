@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
 
-    if(loading) return <Loading />
+    if(loading) return <div className='min-h-screen flex justify-center items-center'><Loading /></div>
 
 
     const authData = {

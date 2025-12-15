@@ -16,7 +16,7 @@ const FeaturedClubs = () => {
   });
    
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <div className="min-h-screen"><Loading /></div>;
   const allClubs = Clubs?.slice(0, 8);
    console.log(allClubs);
   return (
