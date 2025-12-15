@@ -1,43 +1,140 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
+import { motion } from "framer-motion";
 import Container from "./Container";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Loading from "./animation/Loading";
 import { Link } from "react-router";
 import EventCard from "../pages/dashboard/clubManager/EventCard";
+import { Calendar, Sparkles } from "lucide-react";
 
 const FeaturedEvents = () => {
-  const axios = useAxiosSecure();
-  const { data: Events, isLoading } = useQuery({
-    queryKey: ["events"],
+  const axiosSecure = useAxiosSecure();
+
+  const { data: events = [], isLoading } = useQuery({
+    queryKey: ["featuredEvents"],
     queryFn: async () => {
-      const res = await axios.get("/getEvents");
-      return res.data;
+      const res = await axiosSecure.get("/getEvents");
+      return res.data.slice(0, 5);
     },
   });
-   
 
-  if (isLoading) return <div className="min-h-screen"><Loading /></div>;
-  const allEvents = Events?.slice(0, 5);
-   console.log(allEvents);
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 70, scale: 0.94 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 16,
+      },
+    },
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <Container>
-      <div className="my-20">
-        <div className="flex justify-between">
-          <h3 className="font-bold sm:text-4xl text-2xl">Events from Different Clubs</h3>
-          <Link to='/events'>
-          <button className="rounded-xl transform  transition text-lg border-2 text-main font-semibold border-main px-4 py-2 cursor-pointer">
-            See All Events
-          </button>
-          </Link>
-        </div>
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px" }}
+        variants={containerVariants}
+        className="my-24"
+      >
+        {/* Section Header */}
+        <motion.div
+          variants={titleVariants}
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 mb-14"
+        >
+          <div>
+            <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 flex items-center gap-4">
+              <Calendar className="w-12 h-12 text-main" />
+              Events from Different Clubs
+            </h3>
+            <p className="text-lg text-gray-600 mt-4 max-w-2xl">
+              Join exciting meetups, workshops, and gatherings hosted by passionate communities near you
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 gap-8 mt-8">
-          {allEvents?.map((event) => (
-            <EventCard key={event._id} event={event} />
-          ))}
-        </div>
-      </div>
+          <Link to="/events">
+            <motion.button
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.96 }}
+              className="px-10 py-5 rounded-2xl border-2 border-main text-main font-bold text-lg hover:bg-main hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center gap-3"
+            >
+              <Sparkles className="w-6 h-6" />
+              See All Events
+            </motion.button>
+          </Link>
+        </motion.div>
+
+        {/* Events Grid */}
+        {events.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-center py-24 bg-gray-50 rounded-3xl"
+          >
+            <div className="w-32 h-32 bg-gray-100 rounded-full mx-auto mb-8 flex items-center justify-center">
+              <Calendar className="w-16 h-16 text-gray-400" />
+            </div>
+            <h4 className="text-3xl font-bold text-gray-700 mb-4">
+              No events yet
+            </h4>
+            <p className="text-xl text-gray-500 max-w-md mx-auto">
+              Exciting events are coming soon. Stay tuned for workshops, meetups, and more!
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-10"
+          >
+            {events.map((event, index) => (
+              <motion.div
+                key={event._id}
+                variants={cardVariants}
+                custom={index}
+                className="h-full"
+              >
+                <EventCard event={event} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </motion.section>
     </Container>
   );
 };
