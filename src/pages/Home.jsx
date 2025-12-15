@@ -6,6 +6,7 @@ import GetStarted from '../components/GetStarted';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsletterSection from '../components/NewsletterSection';
 import AboutUs from '../components/AboutUs';
+import ContactSection from '../components/ContactSection';
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <TestimonialSection />
             <NewsletterSection />
             <AboutUs />
+            <ContactSection />
         </div>
     );
 };
