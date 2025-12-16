@@ -1,41 +1,60 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import GoogleLogin from "../../components/GoogleLogin";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/authProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const {signInUser,setLoading} = useContext(AuthContext)
+  const { signInUser, setLoading } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-  const {register,handleSubmit,formState:{errors}} = useForm()
-  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const axiosSecure = useAxiosSecure();
 
-  const handleLogin = (data)=>{
-    signInUser(data.email,data.password)
-    .then(res=>{
-        console.log(res.user)
+  const handleLogin = (data) => {
+    signInUser(data.email, data.password)
+      .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Loged In successfully",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        navigate(`${location?.state ? location?.state : "/"}`)
         const userInfo = {
           email: res.user.email,
           displayName: res.user.displayName,
-          photoURL: res.user.photoURL
-        }
+          photoURL: res.user.photoURL,
+        };
 
-        // user save in db 
-        axiosSecure.post(`/user`,userInfo)
-        .then(res=>{
-          if(res.data.insertedId){
-            console.log('user created successfully')
+        // user save in db
+        axiosSecure.post(`/user`, userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("user created successfully");
           }
-        })
-    })
-    .catch(err=>{
-        alert(err)
-    })
-    .finally(()=>setLoading(false))
-  }
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      })
+      .finally(() => setLoading(false));
+  };
   return (
     <div className="min-h-screen flex py-8 md:py-12 md:px-8">
       {/* Left Side*/}
@@ -68,23 +87,26 @@ const Login = () => {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(handleLogin)}>
             <div className="space-y-5">
               <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <div className="mt-2 relative">
-                <Mail className="absolute left-4 top-6 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="email"
-                  id="email"
-                  {...register('email',{required:true})}
-                  placeholder="you@example.com"
-                  className="pl-12 pr-4 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
-                />
-                {errors?.email?.type === 'required' && (
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="mt-2 relative">
+                  <Mail className="absolute left-4 top-6 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="email"
+                    id="email"
+                    {...register("email", { required: true })}
+                    placeholder="you@example.com"
+                    className="pl-12 pr-4 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
+                  />
+                  {errors?.email?.type === "required" && (
                     <p className="text-red-500 text-sm">Email Required</p>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
 
               <div>
                 <label
@@ -98,7 +120,7 @@ const Login = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
-                    {...register('password',{required:true})}
+                    {...register("password", { required: true })}
                     placeholder="Your Password"
                     className="pl-12 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                   />
@@ -113,9 +135,9 @@ const Login = () => {
                       <Eye className="w-5 h-5" />
                     )}
                   </button>
-                  {errors?.password?.type === 'required' && (
+                  {errors?.password?.type === "required" && (
                     <p className="text-red-500 text-sm">Password Required</p>
-                )}
+                  )}
                 </div>
               </div>
             </div>

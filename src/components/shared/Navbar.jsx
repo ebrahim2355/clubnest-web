@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import logo from "../../assets/ClubNest-logo.png";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import Button from "../Button";
 import {
   Menu,
@@ -12,18 +12,37 @@ import {
 } from "lucide-react";
 import { AuthContext } from "../../provider/authProvider";
 import useRole from "../../hooks/useRole";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
   const { role } = useRole();
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    alert("are you sure");
-    logOut();
-    setIsDropdownOpen(false);
-    setIsMobileMenuOpen(false);
+    Swal.fire({
+      title: "Are you sure to Log out?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Log Out",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut();
+        setIsDropdownOpen(false);
+        setIsMobileMenuOpen(false);
+        navigate('/')
+        Swal.fire({
+          title: "Log outed",
+          text: "Log out Successfully",
+          icon: "success",
+        });
+      }
+    });
   };
 
   const Navlinks = (

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Camera, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import Button from "../../components/Button";
 import GoogleLogin from "../../components/GoogleLogin";
@@ -7,13 +7,16 @@ import { useForm } from "react-hook-form";
 import { imageUpload } from "../../utils";
 import { AuthContext } from "../../provider/authProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUser, setLoading } = useContext(AuthContext);
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,7 +35,7 @@ const Register = () => {
   const handleRegister = async (data) => {
     const imageUrl = await imageUpload(profilePic);
 
-    // email password registration 
+    // email password registration
     createUser(data.email, data.password)
       .then((res) => {
         console.log(res.user);
@@ -42,30 +45,48 @@ const Register = () => {
           photoURL: imageUrl,
         };
 
-        // user save in db 
+        // user save in db
         const userInfo = {
           email: res.user.email,
           displayName: data.name,
-          photoURL: imageUrl
-        }
-        axiosSecure.post(`/user`,userInfo)
-        .then(res=>{
-          if(res.data.insertedId){
-            console.log('user created successfully')
+          photoURL: imageUrl,
+        };
+        axiosSecure.post(`/user`, userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("user created successfully");
           }
-        })
+        });
 
-        // update profile 
+        // update profile
         updateUser(userProfile)
           .then(() => {
-            alert("registration successfull");
+            navigate(`${location?.state ? location?.state : "/"}`);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Registration successfully",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           })
           .catch((err) => {
-            alert(err);
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: err.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
           });
       })
       .catch((err) => {
-        alert(err);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
       })
       .finally(() => setLoading(false));
   };
