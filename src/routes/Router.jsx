@@ -28,11 +28,13 @@ import Membership from "../pages/dashboard/clubManager/Membership";
 import PrivateRoute from "../provider/PrivateRoute";
 import AdminOnlyRoute from "../provider/AdminOnlyRoute";
 import ClubManagerOnlyRoute from "../provider/ClubManagerOnlyRoute";
+import Error404 from "../components/animation/Error404";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Mainlayouts,
+    errorElement: <Error404 />,
     children: [
       {
         index: true,
