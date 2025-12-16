@@ -7,6 +7,7 @@ import {
   ChevronDown,
   CopyCheck,
   Grid2x2Plus,
+  HandCoins,
   History,
   Layers,
   LayoutDashboard,
@@ -261,6 +262,20 @@ const DashboardLayout = () => {
                       <Calendars size={18} />
                       <span className="is-drawer-close:hidden">
                         My Events
+                      </span>
+                    </button>
+                  </li>
+                </NavLink>
+
+                <NavLink to="membership">
+                  <li>
+                    <button
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right py-3"
+                      data-tip="Membership"
+                    >
+                      <HandCoins size={18} />
+                      <span className="is-drawer-close:hidden">
+                        Membership
                       </span>
                     </button>
                   </li>

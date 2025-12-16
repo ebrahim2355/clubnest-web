@@ -24,6 +24,7 @@ import EventDetails from "../pages/EventDetails";
 import JoinedEvents from "../pages/dashboard/user/JoinedEvents";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Membership from "../pages/dashboard/clubManager/Membership";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ export const router = createBrowserRouter([
       {
         path: 'joined-events',
         Component: JoinedEvents
+      },
+      {
+        path: 'membership',
+        Component: Membership
       }
     ],
   },
