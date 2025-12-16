@@ -37,9 +37,9 @@ const Login = () => {
     .finally(()=>setLoading(false))
   }
   return (
-    <div className="min-h-screen flex py-8 md:py-0">
+    <div className="min-h-screen flex py-8 md:py-12 md:px-8">
       {/* Left Side*/}
-      <div className="hidden lg:block w-1/2 bg-linear-to-br from-main to-blue-600 relative overflow-hidden">
+      <div className="hidden lg:block w-1/2 bg-linear-to-br from-main to-blue-600 relative overflow-hidden rounded-4xl">
         <img
           src="https://i.ibb.co.com/215F8LYG/bg-gradient.jpg"
           alt="ClubSphere Community"
