@@ -66,7 +66,7 @@ const JoinedClubs = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
           <div className="bg-white p-6 rounded-2xl shadow text-center">
             <div className="text-3xl font-bold text-main">
               {joinReqData?.length}
@@ -78,6 +78,13 @@ const JoinedClubs = () => {
               {joinReqData?.filter((c) => c.status === "active")?.length}
             </div>
             <p className="text-gray-600">Active</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl shadow text-center">
+            <div className="text-3xl font-bold text-red-600">
+              {joinReqData?.filter((c) => c.status === "expired")?.length}
+            </div>
+            <p className="text-gray-600">Expired</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow text-center">

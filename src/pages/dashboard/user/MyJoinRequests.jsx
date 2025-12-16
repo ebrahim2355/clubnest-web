@@ -203,7 +203,7 @@ const MyJoinRequests = () => {
                             {reqData.status.split("g").join("g ")}
                           </p>
                         ) : (
-                          <p className={` font-semibold  py-1 px-2.5 rounded-full ${reqData.status === 'pending join' ? 'text-orange-500 bg-amber-100':'bg-green-100 text-green-800'}`}>
+                          <p className={` font-semibold  py-1 px-2.5 rounded-full ${reqData.status === 'pending join' || reqData.status === 'expired' ? 'text-orange-500 bg-amber-100':'bg-green-100 text-green-800'}`}>
                             {reqData.status}
                           </p>
                         )}

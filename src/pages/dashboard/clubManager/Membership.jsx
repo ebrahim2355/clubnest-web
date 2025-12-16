@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -10,7 +11,7 @@ import {
   X,
 } from "lucide-react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Membership = () => {
   const axiosSecure = useAxiosSecure();
@@ -24,7 +25,30 @@ const Membership = () => {
   });
 
 
+  const queryClient = useQueryClient()
+  const { mutate: updateStatus, isPending } = useMutation({
+    mutationFn: async ({ id, updateInfo }) => {
+      const res = await axiosSecure.patch(`/updateMembershipStatus/${id}`, updateInfo);
+      return res.data;
+    },
+    onSuccess: () => {
+      alert("status updated successfully");
+      queryClient.invalidateQueries(["membership"]);
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
 
+  const activeMember = (id) => {
+    const updateInfo = { status: 'active' };
+    updateStatus({id,updateInfo})
+  };
+
+  const expireMember = (id) => {
+    const updateInfo = { status: 'expired' };
+    updateStatus({id,updateInfo})
+  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -112,7 +136,7 @@ const Membership = () => {
           animate="visible"
           className="bg-white rounded-3xl shadow-xl overflow-hidden"
         >
-          <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-main/5 to-purple-50">
+          <div className="p-6 border-b border-gray-200 bg-linear-to-r from-main/5 to-purple-50">
             <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
               <Users className="w-7 h-7 text-main" />
               Your Club Memberships
@@ -227,8 +251,18 @@ const Membership = () => {
 
                       <td className="px-6 py-6 text-center">
                         <div className="flex justify-center items-center gap-2">
-                          <button className="px-4 py-2 rounded-xl bg-green-100 text-green-800 font-semibold flex justify-center items-center gap-2 cursor-pointer"><StatusIcon className="w-5 h-5" /> Active</button>
-                          <button className="px-4 py-2 rounded-xl bg-red-50 text-red-600 font-semibold flex justify-center items-center gap-2 cursor-pointer"><X /> Expire</button>
+                          <button
+                            onClick={() => activeMember(membership._id)}
+                            className="px-4 py-2 rounded-xl bg-green-100 text-green-800 font-semibold flex justify-center items-center gap-2 cursor-pointer"
+                          >
+                            <StatusIcon className="w-5 h-5" /> Active
+                          </button>
+                          <button
+                            onClick={() => expireMember(membership._id)}
+                            className="px-4 py-2 rounded-xl bg-red-50 text-red-600 font-semibold flex justify-center items-center gap-2 cursor-pointer"
+                          >
+                            <X /> Expire
+                          </button>
                         </div>
                       </td>
                     </tr>
