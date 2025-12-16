@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import {
   UserCheck,
   Mail,
@@ -71,7 +71,7 @@ const BecomeManager = () => {
   // If not logged in
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -82,9 +82,11 @@ const BecomeManager = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Please log in to continue
           </h2>
-          <Button onClick={() => navigate('/login')} className="rounded-full px-8">
+          <Link to="/login">
+          <Button className="rounded-full px-8">
             Go to Login
           </Button>
+          </Link>
         </motion.div>
       </div>
     );
