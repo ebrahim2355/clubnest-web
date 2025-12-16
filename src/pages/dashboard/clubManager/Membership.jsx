@@ -86,10 +86,10 @@ const Membership = () => {
             <Users className="w-10 h-10 text-main" />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-            My Memberships
+            My Clubs Memberships
           </h1>
           <p className="mt-4 text-xl text-gray-600">
-            View all clubs you're a member of and your membership status
+            View all clubs memberships you're created and manage your members status
           </p>
         </motion.div>
 
@@ -120,12 +120,12 @@ const Membership = () => {
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
             <div className="text-4xl font-bold text-main">
-              ৳
+              $
               {memberships
                 ?.reduce((sum, m) => sum + m.clubFee, 0)
                 .toLocaleString()}
             </div>
-            <p className="text-gray-600 mt-2">Total Spent</p>
+            <p className="text-gray-600 mt-2">Total Earn</p>
           </div>
         </motion.div>
 
