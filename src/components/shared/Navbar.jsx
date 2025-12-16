@@ -19,7 +19,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
   const { role } = useRole();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     Swal.fire({
@@ -35,7 +35,7 @@ const Navbar = () => {
         logOut();
         setIsDropdownOpen(false);
         setIsMobileMenuOpen(false);
-        navigate('/')
+        navigate("/");
         Swal.fire({
           title: "Log outed",
           text: "Log out Successfully",
@@ -87,13 +87,15 @@ const Navbar = () => {
         <li>Contact Us</li>
       </NavLink>
 
-      <NavLink
-        to="/becomeClubManager"
-        className="hover:text-main transition"
-        onClick={() => setIsMobileMenuOpen(false)}
-      >
-        <li>Become Club Manager</li>
-      </NavLink>
+      {(role === "admin" || role === "Club-Manager") && (
+        <NavLink
+          to="/becomeClubManager"
+          className="hover:text-main transition"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <li>Become Club Manager</li>
+        </NavLink>
+      )}
     </>
   );
 

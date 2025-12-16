@@ -17,11 +17,16 @@ import {
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loading from "../../../components/animation/Loading";
 
 const UserDashboardHome = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: userStats } = useQuery({
+  const {
+    data: userStats,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["member-stats"],
     queryFn: async () => {
       const res = await axiosSecure.get("/member-stats");
@@ -31,9 +36,12 @@ const UserDashboardHome = () => {
 
   // Transform data into array format for stats and chart
   const statsData = [
-      { status: "Total Events Attended", count: userStats?.totalEventsAttended || 0 },
-      { status: "Total Clubs Joined", count: userStats?.totalClubsJoined || 0 },
-      { status: "Total Spent", count: userStats?.totalSpent || 0 },
+    {
+      status: "Total Events Attended",
+      count: userStats?.totalEventsAttended || 0,
+    },
+    { status: "Total Clubs Joined", count: userStats?.totalClubsJoined || 0 },
+    { status: "Total Spent", count: userStats?.totalSpent || 0 },
   ];
 
   // For the area chart (using all metrics)
@@ -41,6 +49,14 @@ const UserDashboardHome = () => {
     name: item.status.replace("Total ", ""),
     value: item.count,
   }));
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">

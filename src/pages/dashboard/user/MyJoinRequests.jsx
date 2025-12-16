@@ -6,26 +6,28 @@ import {
   AlertCircle,
   BadgeDollarSign,
   Calendar,
-  Check,
   PlusCircle,
-  X,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import Loading from "../../../components/animation/Loading";
 
 const MyJoinRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
-  const { data: joinReqData } = useQuery({
+  const {
+    data: joinReqData,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["joinReqData"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/membershipGet?email=${user.email}`);
       return res.data;
     },
   });
-  console.log(joinReqData);
 
   const queryClient = useQueryClient();
-  const { mutate: payClubFee } = useMutation({
+  const { mutate: payClubFee, isPending: pendings } = useMutation({
     mutationFn: async (paymentInfo) => {
       const res = await axiosSecure.post(
         "/create-checkout-session",
@@ -53,7 +55,7 @@ const MyJoinRequests = () => {
     payClubFee(paymentInfo);
   };
 
-  const { mutate: freeJoin } = useMutation({
+  const { mutate: freeJoin, isPending } = useMutation({
     mutationFn: async (clubInfo) => {
       const res = await axiosSecure.patch("/freeJoin", clubInfo);
       return res.data;
@@ -102,6 +104,14 @@ const MyJoinRequests = () => {
     (data) => data.status === "pending join"
   );
   const expiredClub = joinReqData?.filter((data) => data.status === "expired");
+  if (isLoading || isFetching || isPending || pendings) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="w-10/12 mx-auto">

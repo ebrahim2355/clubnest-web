@@ -5,12 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../provider/authProvider";
 import EventCard from "../clubManager/EventCard";
+import Loading from "../../../components/animation/Loading";
 
 const JoinedEvents = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data: allEvents } = useQuery({
+  const {
+    data: allEvents,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["allEvents", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get("/getEvents");
@@ -18,7 +23,11 @@ const JoinedEvents = () => {
     },
   });
 
-  const { data: joinedEvents } = useQuery({
+  const {
+    data: joinedEvents,
+    isLoading: loading,
+    isFetching: fetching,
+  } = useQuery({
     queryKey: ["joinedEvents"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -42,6 +51,14 @@ const JoinedEvents = () => {
   const joinedEvent = allEvents?.filter((event) =>
     joinedEventIds?.includes(event._id)
   );
+
+  if (isLoading || isFetching || loading || fetching) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">

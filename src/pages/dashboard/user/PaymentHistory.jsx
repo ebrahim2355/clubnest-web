@@ -3,19 +3,22 @@ import { AuthContext } from "../../../provider/authProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, Calendar, History } from "lucide-react";
+import Loading from "../../../components/animation/Loading";
 
 const PaymentHistory = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const { data: payments } = useQuery({
+  const {
+    data: payments,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["payments"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
       return res.data;
     },
   });
-
-  console.log(payments)
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -26,6 +29,14 @@ const PaymentHistory = () => {
       minute: "2-digit",
     });
   };
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="w-10/12 mx-auto">
@@ -42,7 +53,9 @@ const PaymentHistory = () => {
         {/* Table */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="p-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2"><History /> Payment History</h2>
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <History /> Payment History
+            </h2>
           </div>
 
           <div className="overflow-x-auto">
@@ -77,21 +90,16 @@ const PaymentHistory = () => {
 
                     <td className="px-6 py-5">
                       <div>
-                        <p className=" text-gray-900">
-                          {payment.clubId}
-                        </p>
+                        <p className=" text-gray-900">{payment.clubId}</p>
                       </div>
                     </td>
 
                     {/* transactionId  */}
                     <td>
-                      
-                        <p className=" py-1 px-2 rounded-full">
-                          {payment.transactionId}
-                        </p>
-                    
+                      <p className=" py-1 px-2 rounded-full">
+                        {payment.transactionId}
+                      </p>
                     </td>
-
 
                     {/* created Date */}
                     <td className="px-6 py-5 text-center">

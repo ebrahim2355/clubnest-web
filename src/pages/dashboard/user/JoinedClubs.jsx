@@ -5,12 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../provider/authProvider";
 import ClubCard from "../clubManager/ClubCard";
+import Loading from "../../../components/animation/Loading";
 
 const JoinedClubs = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data: allClubs } = useQuery({
+  const {
+    data: allClubs,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["allClubs", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get("/clubs");
@@ -18,7 +23,11 @@ const JoinedClubs = () => {
     },
   });
 
-  const { data: joinReqData } = useQuery({
+  const {
+    data: joinReqData,
+    isLoading: loading,
+    isFetching: fetching,
+  } = useQuery({
     queryKey: ["joinReqData"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/membershipGet?email=${user.email}`);
@@ -33,7 +42,6 @@ const JoinedClubs = () => {
   const joinedClubs = allClubs?.filter((club) =>
     joinedClubIds?.includes(club._id)
   );
-  console.log(joinedClubs);
 
   const pending = joinReqData?.filter(
     (data) => data.status === "pendingPayment"
@@ -42,6 +50,14 @@ const JoinedClubs = () => {
   const pendingJoin = joinReqData?.filter(
     (data) => data.status === "pending join"
   );
+
+  if (isLoading || isFetching || loading || fetching) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
