@@ -100,10 +100,9 @@ const EventDetails = () => {
     if (!isJoinedClub) {
       Swal.fire({
         position: "center",
-        icon: "success",
+        icon: "error",
         title: "Please join first on this Events Club",
-        showConfirmButton: false,
-        timer: 2000,
+        showConfirmButton: true,
       });
       navigate(`/clubs/${event.clubId}`);
     } else {
