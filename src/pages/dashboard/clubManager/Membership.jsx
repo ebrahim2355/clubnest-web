@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -14,10 +14,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import Loading from "../../../components/animation/Loading";
+import { AuthContext } from "../../../provider/authProvider";
 
 const Membership = () => {
   const axiosSecure = useAxiosSecure();
-
+  const {user} = useContext(AuthContext)
   const {
     data: memberships,
     isLoading,
@@ -25,7 +26,7 @@ const Membership = () => {
   } = useQuery({
     queryKey: ["membership"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/membershipGet");
+      const res = await axiosSecure.get(`/membershipGet?email=${user.email}`);
       return res.data;
     },
   });

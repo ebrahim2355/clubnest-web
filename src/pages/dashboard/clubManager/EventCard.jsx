@@ -176,7 +176,7 @@ const EventCard = ({ event, registerId }) => {
 
         {/* Card Body */}
         <div className="p-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">{eventName}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-3 h-16">{eventName}</h3>
 
           <p className="text-gray-600 line-clamp-2 mb-5 h-12">{description}</p>
 
@@ -194,7 +194,7 @@ const EventCard = ({ event, registerId }) => {
 
             <div className="flex items-center gap-3 text-gray-700">
               <MapPin className="w-5 h-5 text-main" />
-              <span>{location}</span>
+              <span className="text-nowrap">{location}</span>
             </div>
 
             <div className="flex items-center gap-3 text-gray-700">

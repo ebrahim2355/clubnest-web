@@ -3,9 +3,12 @@ import EventCard from "./EventCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../../components/animation/Loading";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/authProvider";
 
 const MyEvents = () => {
   const axiosSecure = useAxiosSecure();
+  const {user} = useContext(AuthContext)
 
   const {
     data: events,
@@ -14,7 +17,7 @@ const MyEvents = () => {
   } = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/getEvents");
+      const res = await axiosSecure.get(`/getEvents?email=${user.email}`);
       return res.data;
     },
   });

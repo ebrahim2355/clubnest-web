@@ -184,7 +184,7 @@ const ClubCard = ({ club }) => {
 
         {/* Card Body */}
         <div className="p-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{clubName}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2 h-16">{clubName}</h3>
 
           <p className="text-gray-600 line-clamp-2 mb-4 h-12">{description}</p>
 
