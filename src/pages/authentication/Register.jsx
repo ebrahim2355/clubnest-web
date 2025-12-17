@@ -204,12 +204,25 @@ const Register = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                      message:
+                        "Password must contain at least one uppercase, one lowercase and one number",
+                    },
+                  })}
                   placeholder="Create a strong password"
                   className="pl-12 pr-14 py-3 w-full border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                 />
-                {errors.password?.type === "required" && (
-                  <p className="text-red-500">Password Required</p>
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
                 )}
                 <button
                   type="button"
