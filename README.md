@@ -4,7 +4,7 @@ ClubNest is a vibrant community platform that enables users to discover, join, c
 
 ## Live Demo
 
-Live Website: https://clubnest-app.web.app/ (https://clubnest-commiunity.web.app)
+Live Website: https://clubnest-commiunity.web.app
 
 ## Repositories Link
 
@@ -105,10 +105,32 @@ Repository (Backend): https://github.com/obaidullah-miazi-dev/ClubNest-Server
 | Database       | MongoDB                                  |
 | Payments       | Stripe (assumed from payment success)    |
 
+
+## npm pakages used in this project
+
+- @tailwindcss/vite
+- @tanstack/react-query
+- axios
+- daisyui
+- firebase
+- framer-motion
+- lenis
+- lottie-react
+- lucide-react
+- react
+- react-datepicker
+- react-dom
+- react-hook-form
+- react-lottie
+- react-router
+- recharts
+- sweetalert2
+- tailwindcss
+
 ## Running the “ClubNest” Project Locally
 
 This guide explains how to run the Frontend. ClubNest primarily uses Express for backend services.
-
+```bash
 1. Clone the Repository  
    git clone https://github.com/obaidullah-miazi-dev/ClubNest-Web
 
@@ -136,6 +158,7 @@ This guide explains how to run the Frontend. ClubNest primarily uses Express for
 
    The app will run at: http://localhost:5173
 
+```
 
 ## Theme Customization
 
