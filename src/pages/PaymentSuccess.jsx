@@ -46,7 +46,7 @@ const PaymentSuccess = () => {
           <div className="w-32 h-32 mx-auto mb-6">
             <Loading />
           </div>
-          <p className="text-xl text-gray-600 mt-8">Processing your payment...</p>
+          <p className="text-xl text-gray-600 mt-8 text-center">Processing your payment...</p>
         </div>
       </div>
     );
