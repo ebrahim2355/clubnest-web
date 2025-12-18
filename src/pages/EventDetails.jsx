@@ -58,10 +58,12 @@ const EventDetails = () => {
   console.log(existEventRegistration?.status);
   const event = eventData?.[0];
 
-  const membershipDataClubIds = membershipData?.map((data) => data.clubId);
-  // console.log(membershipDataClubIds);
+  const currentMembership = membershipData?.find(
+    (data) => data.clubId === event?.clubId
+  );
 
-  const isJoinedClub = membershipDataClubIds?.includes(event?.clubId);
+  const hasJoinedClub = !!currentMembership;
+  const isPaymentCompleted = currentMembership?.status === "active";
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -97,23 +99,32 @@ const EventDetails = () => {
   });
 
   const handleRegister = () => {
-    if (!isJoinedClub) {
+    if (!hasJoinedClub) {
       Swal.fire({
-        position: "center",
         icon: "error",
-        title: "Please join first on this Events Club",
-        showConfirmButton: true,
+        title: "Join the club first",
+        text: "You must join this club before registering for the event.",
       });
-      navigate(`/clubs/${event.clubId}`);
-    } else {
-      const eventData = {
-        eventId: id,
-        status: "registered",
-        userEmail: user.email,
-        clubId: event.clubId,
-      };
-      registerEvent(eventData);
+      return navigate(`/clubs/${event.clubId}`);
     }
+
+    if (!isPaymentCompleted) {
+      Swal.fire({
+        icon: "warning",
+        title: "Payment Required",
+        text: "Please complete your club membership payment first.",
+      });
+      return navigate("/dashboard/my-join-requests");
+    }
+
+    const eventData = {
+      eventId: id,
+      status: "registered",
+      userEmail: user.email,
+      clubId: event.clubId,
+    };
+
+    registerEvent(eventData);
   };
 
   if (isLoading) {
