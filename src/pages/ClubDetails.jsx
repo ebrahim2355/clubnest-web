@@ -160,7 +160,6 @@ const ClubDetails = () => {
     });
   };
 
-  console.log(club.status);
 
   return (
     <>
