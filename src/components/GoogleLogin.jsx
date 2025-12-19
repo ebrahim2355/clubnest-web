@@ -30,7 +30,7 @@ const GoogleLogin = () => {
           // user save in db
           axiosSecure.post(`/user`, userInfo).then((res) => {
             if (res.data.insetedId) {
-              console.log("user created successfully");
+              // console.log("user created successfully");
             }
           });
         }

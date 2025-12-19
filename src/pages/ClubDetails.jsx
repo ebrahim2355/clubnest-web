@@ -304,14 +304,14 @@ const ClubDetails = () => {
                       Create an Event from this Club
                     </p>
 
-                    {club.status === "pending" ? (
+                    {club?.status === "pending" ? (
                       <button
                         disabled
                         className="w-full bg-white text-main cursor-not-allowed font-bold text-xl py-5 rounded-2xl hover:bg-gray-100 transform  transition-all duration-300 shadow-lg"
                       >
                         Wait For Club Approval
                       </button>
-                    ) : club.status === "rejected" ? (
+                    ) : club?.status === "rejected" ? (
                       <button className="w-full bg-white text-main font-bold text-xl py-5 rounded-2xl hover:bg-gray-100 cursor-not-allowed shadow-lg">
                         admin rejected your club
                       </button>

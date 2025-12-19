@@ -37,7 +37,6 @@ const AdminDashboardHome = () => {
   const statData = statsData?.filter(
     (d) => d.status !== "Weekly Earnings" && d.status !== "Daily Earnings"
   );
-  console.log(statData);
 
   const earningsChartData = statsData
     ?.filter((item) =>

@@ -29,7 +29,6 @@ const ClubManagerApproval = () => {
     },
   });
 
-  console.log(clubManager);
   const queryClient = useQueryClient();
 
   const { mutate: updateStatus, isPending } = useMutation({
@@ -92,7 +91,6 @@ const ClubManagerApproval = () => {
   const approvedManager = clubManager?.filter((m) => m.status === "approved");
   const pendingManager = clubManager?.filter((m) => m.status === "pending");
   const rejectedManager = clubManager?.filter((m) => m.status === "rejected");
-  console.log(pendingManager?.length);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

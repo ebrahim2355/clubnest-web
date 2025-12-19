@@ -10,7 +10,6 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  // console.log(user);
   useEffect(() => {
     const reqInterceptors = axiosSecure.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${user?.accessToken}`;
@@ -22,7 +21,6 @@ const useAxiosSecure = () => {
         return response;
       },
       (error) => {
-        console.log(error);
         const statusCode = error.status;
         if (statusCode === 401 || statusCode === 403) {
           logOut().then(() => {

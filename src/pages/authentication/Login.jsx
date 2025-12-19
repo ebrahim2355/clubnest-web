@@ -40,7 +40,7 @@ const Login = () => {
         // user save in db
         axiosSecure.post(`/user`, userInfo).then((res) => {
           if (res.data.insertedId) {
-            console.log("user created successfully");
+            // console.log("user created successfully");
           }
         });
       })

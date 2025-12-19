@@ -38,7 +38,7 @@ const Register = () => {
     // email password registration
     createUser(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
+        // console.log(res.user);
 
         const userProfile = {
           displayName: data.name,
@@ -53,7 +53,7 @@ const Register = () => {
         };
         axiosSecure.post(`/user`, userInfo).then((res) => {
           if (res.data.insertedId) {
-            console.log("user created successfully");
+            // console.log("user created successfully");
           }
         });
 

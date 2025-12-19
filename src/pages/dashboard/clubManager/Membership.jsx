@@ -27,7 +27,7 @@ const Membership = () => {
   } = useQuery({
     queryKey: ["membership"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/membershipGet?email=${user.email}`);
+      const res = await axiosSecure.get(`/membershipGet?managerEmail=${user.email}`);
       return res.data;
     },
   });
@@ -251,7 +251,7 @@ const Membership = () => {
                           </span>
                         ) : (
                           <span className="text-2xl font-bold text-main">
-                            ৳{membership.clubFee.toLocaleString()}
+                            ${membership.clubFee.toLocaleString()}
                           </span>
                         )}
                       </td>

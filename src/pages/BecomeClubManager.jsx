@@ -30,7 +30,6 @@ const BecomeManager = () => {
   } = useForm();
 
   const handleSubmitApplication = (data) => {
-    console.log(data);
     const clubManagerData = { ...data, photoURL: user?.photoURL };
     axiosSecure
       .post("/clubManager", clubManagerData)

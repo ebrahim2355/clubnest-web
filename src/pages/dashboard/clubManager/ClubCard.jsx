@@ -33,7 +33,6 @@ const ClubCard = ({ club }) => {
   const [bannerPhoto, setBannerPhoto] = useState();
 
   const Location = useLocation();
-  // console.log(Location.pathname);
 
   const categories = [
     "Photography",

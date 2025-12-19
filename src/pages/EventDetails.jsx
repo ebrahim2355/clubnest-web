@@ -55,7 +55,6 @@ const EventDetails = () => {
   });
 
   const existEventRegistration = RegisteredEvent?.find((e) => e.eventId === id);
-  console.log(existEventRegistration?.status);
   const event = eventData?.[0];
 
   const currentMembership = membershipData?.find(
