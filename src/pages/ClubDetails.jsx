@@ -102,6 +102,7 @@ const ClubDetails = () => {
       memberEmail: user.email,
       memberName: user.displayName,
       memberImage: user.photoURL,
+      managerEmail:club.managerEmail
     };
     joinReq(membershipData);
   };

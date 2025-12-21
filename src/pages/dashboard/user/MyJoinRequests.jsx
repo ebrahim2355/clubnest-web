@@ -45,14 +45,14 @@ const MyJoinRequests = () => {
     const paymentInfo = {
       clubFee: data.clubFee,
       clubName: data.clubName,
-      clubManagerEmail: data.managerEmail,
+      managerEmail: data.managerEmail,
       clubId: data.clubId,
       memberEmail: data.memberEmail,
       memberName: data.memberName,
       memberId: data._id,
       status: data.status,
     };
-
+    
     payClubFee(paymentInfo);
   };
 
@@ -77,7 +77,7 @@ const MyJoinRequests = () => {
     const clubInfo = {
       clubFee: data.clubFee,
       clubName: data.clubName,
-      clubManagerEmail: data.managerEmail,
+      managerEmail: data.managerEmail,
       clubId: data.clubId,
       memberEmail: data.memberEmail,
       memberName: data.memberName,
