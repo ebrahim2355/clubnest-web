@@ -119,7 +119,7 @@ const FeaturedClubs = () => {
         ) : (
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-8"
+            className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4  gap-8"
           >
             {clubs.map((club, index) => (
               <motion.div
