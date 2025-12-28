@@ -225,7 +225,7 @@ const ClubCard = ({ club }) => {
                   <p className="font-bold text-green-600 text-xl">free</p>
                 ) : (
                   <p className="text-2xl font-bold text-main">
-                    ৳{memberShipFee.toLocaleString()}
+                    ${memberShipFee.toLocaleString()}
                   </p>
                 )}
                 <p className="text-xs text-gray-500">membership fee</p>

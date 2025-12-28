@@ -82,7 +82,7 @@ const HeroBanner = () => {
             initial="hidden"
             animate="visible"
             variants={textVariants}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight"
           >
             Find Your People.
             <br />

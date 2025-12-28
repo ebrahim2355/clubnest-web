@@ -19,7 +19,11 @@ import Swal from "sweetalert2";
 const ClubApprovalList = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: Clubs, isLoading , isFetching } = useQuery({
+  const {
+    data: Clubs,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["allClubs"],
     queryFn: async () => {
       const res = await axiosSecure.get("/clubs");
@@ -69,9 +73,11 @@ const ClubApprovalList = () => {
   };
 
   if (isLoading || isFetching) {
-   return <div className="min-h-screen flex justify-center items-center">
-      <Loading />
-    </div>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Loading />
+      </div>
+    );
   }
   const pendingClubs = Clubs.filter((c) => c.status === "pending");
   const approvedClubs = Clubs.filter((c) => c.status === "approved");
@@ -190,7 +196,7 @@ const ClubApprovalList = () => {
                         </span>
                       ) : (
                         <span className="text-2xl font-bold text-main">
-                          ৳{club.memberShipFee.toLocaleString()}
+                          ${club.memberShipFee.toLocaleString()}
                         </span>
                       )}
                     </td>

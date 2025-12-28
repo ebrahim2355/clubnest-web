@@ -102,7 +102,7 @@ const ClubDetails = () => {
       memberEmail: user.email,
       memberName: user.displayName,
       memberImage: user.photoURL,
-      managerEmail:club.managerEmail
+      managerEmail: club.managerEmail,
     };
     joinReq(membershipData);
   };
@@ -160,7 +160,6 @@ const ClubDetails = () => {
       day: "numeric",
     });
   };
-
 
   return (
     <>
@@ -224,7 +223,7 @@ const ClubDetails = () => {
                   <DollarSign className="w-12 h-12 text-green-600 mx-auto mb-3" />
                   <p className="text-gray-600">Membership Fee</p>
                   <p className="text-3xl font-bold text-green-700">
-                    ৳{club?.memberShipFee}
+                    ${club?.memberShipFee}
                   </p>
                 </div>
                 <div className="bg-linear-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 text-center">
