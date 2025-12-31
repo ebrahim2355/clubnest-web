@@ -120,7 +120,7 @@ const FeaturedEvents = () => {
         ) : (
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-10"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10"
           >
             {events.map((event, index) => (
               <motion.div

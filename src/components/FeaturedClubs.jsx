@@ -16,7 +16,7 @@ const FeaturedClubs = () => {
     queryKey: ["featuredClubs"],
     queryFn: async () => {
       const res = await axiosSecure.get("/clubs?status=approved");
-      return res.data.slice(0, 4); 
+      return res.data.slice(0, 4);
     },
   });
 
@@ -119,7 +119,7 @@ const FeaturedClubs = () => {
         ) : (
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4  gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-8"
           >
             {clubs.map((club, index) => (
               <motion.div
