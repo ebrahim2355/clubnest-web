@@ -4,12 +4,11 @@ ClubNest is a vibrant community platform that enables users to discover, join, c
 
 ## Live Demo
 
-Live Website: https://clubnest-commiunity.web.app
+Live Website: https://clubnest-web.web.app
 
 ## Repositories Link
 
-Repository (Frontend): https://github.com/obaidullah-miazi-dev/ClubNest-Web  
-Repository (Backend): https://github.com/obaidullah-miazi-dev/ClubNest-Server
+Repository (Frontend): https://github.com/ebrahim2355/clubnest-web
 
 ## Features
 
@@ -106,7 +105,7 @@ Repository (Backend): https://github.com/obaidullah-miazi-dev/ClubNest-Server
 | Payments       | Stripe (assumed from payment success)    |
 
 
-## npm pakages used in this project
+## npm packages used in this project
 
 - @tailwindcss/vite
 - @tanstack/react-query
@@ -132,10 +131,10 @@ Repository (Backend): https://github.com/obaidullah-miazi-dev/ClubNest-Server
 This guide explains how to run the Frontend. ClubNest primarily uses Express for backend services.
 ```bash
 1. Clone the Repository  
-   git clone https://github.com/obaidullah-miazi-dev/ClubNest-Web
+   git clone https://github.com/ebrahim2355/clubnest-web
 
 2. Navigate to the folder  
-   cd ClubNest-Web
+   cd clubnest-web
 
 3. Install dependencies  
    npm install
@@ -174,9 +173,9 @@ This guide explains how to run the Frontend. ClubNest primarily uses Express for
 - Mobile app integration.
 - More payment gateways and refund system.
 
-## Developed by Obaidullah Miazi
+## Developed by MD EBRAHIM ALI
 
-Email: obaidullahmiazi.dev@gmail.com 
-LinkedIn: https://www.linkedin.com/in/obaidullah-miazi/
+Email: web.ebrahimali@gmail.com
+LinkedIn: https://www.linkedin.com/in/ebrahim235/
 
 “Connect, Create, Community — ClubNest brings passions to life.”

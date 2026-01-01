@@ -7,6 +7,9 @@ const axiosSecure = axios.create({
   baseURL: "https://club-nest-server.vercel.app",
 });
 
+// http://localhost:3000
+// https://club-nest-server.vercel.app
+
 const useAxiosSecure = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
