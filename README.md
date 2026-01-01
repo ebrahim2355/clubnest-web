@@ -131,7 +131,7 @@ Repository (Frontend): https://github.com/ebrahim2355/clubnest-web
 This guide explains how to run the Frontend. ClubNest primarily uses Express for backend services.
 ```bash
 1. Clone the Repository  
-   git clone https://github.com/ebrahim2355/clubnest-web
+   git clone https://github.com/ebrahim2355/clubnest-web.git
 
 2. Navigate to the folder  
    cd clubnest-web
@@ -176,6 +176,7 @@ This guide explains how to run the Frontend. ClubNest primarily uses Express for
 ## Developed by MD EBRAHIM ALI
 
 Email: web.ebrahimali@gmail.com
+
 LinkedIn: https://www.linkedin.com/in/ebrahim235/
 
 “Connect, Create, Community — ClubNest brings passions to life.”
